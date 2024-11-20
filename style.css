@@ -1,0 +1,154 @@
+.test {
+  color: red;
+}
+
+.glitch {
+  background: #000 no-repeat center;
+  background-size: 0;
+  height: 100vh;
+  overflow: hidden;
+  position: relative;
+}
+.glitch .channel {
+  background: inherit;
+  background-size: cover;
+  bottom: 0;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+.glitch .channel {
+  mix-blend-mode: screen;
+}
+.glitch .channel::before {
+  bottom: 0;
+  content: "";
+  display: block;
+  left: 0;
+  mix-blend-mode: multiply;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+.glitch .r {
+  animation: rgb-shift-r 3s steps(1, jump-end) infinite alternate both;
+}
+@keyframes rgb-shift-r {
+  0% {
+    transform: translate(0.6364756369%, 0.321377606%);
+  }
+  2% {
+    transform: translate(0.672268305%, 0.4525248458%);
+  }
+  4% {
+    transform: translate(-0.0132474155%, 0.121557245%);
+  }
+  6% {
+    transform: translate(-0.4908888327%, 0.2179310658%);
+  }
+  8% {
+    transform: translate(-0.0974365797%, -0.246086054%);
+  }
+  10% {
+    transform: translate(-1.2703661501%, 0.3248850985%);
+  }
+  12% {
+    transform: translate(1.56713872%, -0.1343225935%);
+  }
+  14% {
+    transform: translate(1.2467834765%, 0.1042449516%);
+  }
+  16% {
+    transform: translate(-0.414470583%, 0.3446170278%);
+  }
+  18% {
+    transform: translate(-1.8849707951%, 0.1695198361%);
+  }
+  20%, 100% {
+    transform: none;
+  }
+}
+.glitch .r::before {
+  background: #f00;
+}
+.glitch .g {
+  animation: rgb-shift-g 3s steps(1, jump-end) infinite alternate both;
+}
+@keyframes rgb-shift-g {
+  0% {
+    transform: translate(1.6565291487%, 0.0278581311%);
+  }
+  2% {
+    transform: translate(1.212742628%, 0.2540454323%);
+  }
+  4% {
+    transform: translate(-0.4049079819%, 0.3987493818%);
+  }
+  6% {
+    transform: translate(-0.401523638%, -0.447627121%);
+  }
+  8% {
+    transform: translate(-1.0319979958%, -0.1966766728%);
+  }
+  10% {
+    transform: translate(-0.0613374481%, 0.2261623779%);
+  }
+  12% {
+    transform: translate(-0.5812074556%, 0.1744470967%);
+  }
+  14% {
+    transform: translate(-0.6087857794%, 0.0583888867%);
+  }
+  16% {
+    transform: translate(-1.9098058599%, -0.3458736333%);
+  }
+  18% {
+    transform: translate(-0.6916759293%, 0.038355826%);
+  }
+  20%, 100% {
+    transform: none;
+  }
+}
+.glitch .g::before {
+  background: #0f0;
+}
+.glitch .b::before {
+  animation: rgb-shift-b 3s steps(1, jump-end) infinite alternate both;
+  background: #00f;
+}
+@keyframes rgb-shift-b {
+  0% {
+    transform: translate(1.1664071876%, 0.1882444377%);
+  }
+  2% {
+    transform: translate(1.6883848134%, 0.1383118626%);
+  }
+  4% {
+    transform: translate(1.6848142831%, -0.0271334417%);
+  }
+  6% {
+    transform: translate(-1.7591006203%, 0.4481353186%);
+  }
+  8% {
+    transform: translate(0.3635980684%, 0.2085137147%);
+  }
+  10% {
+    transform: translate(-0.5245211194%, -0.1448290712%);
+  }
+  12% {
+    transform: translate(-0.9804333341%, 0.4959449644%);
+  }
+  14% {
+    transform: translate(1.9815875318%, 0.1434520057%);
+  }
+  16% {
+    transform: translate(0.1368064036%, -0.2168263923%);
+  }
+  18% {
+    transform: translate(1.5221810971%, 0.0630467204%);
+  }
+  20%, 100% {
+    transform: none;
+  }
+}/*# sourceMappingURL=style.css.map */

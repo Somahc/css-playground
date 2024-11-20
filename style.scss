@@ -1,0 +1,83 @@
+// 最小~最大の間のランダムな数値を返す関数
+@function rand($min, $max) {
+  @return random() * ($max - $min) + $min;
+}
+
+$animation-duration: 3s;
+$glitch-duration: 20%;
+$glitch-frequency: 10;
+$glitch-interval: $glitch-duration / $glitch-frequency;
+
+@mixin rgb-shift($name) {
+  @keyframes rgb-shift-#{$name} {
+    @for $i from 0 to $glitch-frequency {
+      #{$i * $glitch-interval} {
+        transform: translate(#{rand(-2, 2) * 1%}, #{rand(-0.5, 0.5) * 1%});
+      }
+    }
+    #{$glitch-duration},
+    100% {
+      transform: none;
+    }
+  }
+
+  animation: rgb-shift-#{$name} $animation-duration steps(1, jump-end) infinite alternate
+    both;
+}
+
+.test {
+  color: red;
+}
+
+.glitch {
+  background: #000 no-repeat center;
+  background-size: 0;
+  height: 100vh;
+  overflow: hidden;
+  position: relative;
+
+  .channel {
+    background: inherit;
+    background-size: cover;
+    bottom: 0;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+
+  .channel {
+    mix-blend-mode: screen;
+    &::before {
+      bottom: 0;
+      content: "";
+      display: block;
+      left: 0;
+      mix-blend-mode: multiply;
+      position: absolute;
+      right: 0;
+      top: 0;
+    }
+  }
+
+  .r {
+    // transform: translate(4px, 2px);
+    @include rgb-shift(r);
+    &::before {
+      background: #f00;
+    }
+  }
+  .g {
+    // transform: translate(-3px, -1px);
+    @include rgb-shift(g);
+    &::before {
+      background: #0f0;
+    }
+  }
+  .b {
+    &::before {
+      @include rgb-shift(b);
+      background: #00f;
+    }
+  }
+}
