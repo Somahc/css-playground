@@ -8,6 +8,7 @@ $glitch-duration: 20%;
 $glitch-frequency: 10;
 $glitch-interval: $glitch-duration / $glitch-frequency;
 
+// RGBずらし
 @mixin rgb-shift($name) {
   @keyframes rgb-shift-#{$name} {
     @for $i from 0 to $glitch-frequency {
@@ -25,25 +26,67 @@ $glitch-interval: $glitch-duration / $glitch-frequency;
     both;
 }
 
-.test {
-  color: red;
+// グリッチ
+@mixin glitch($name) {
+  @keyframes glitch-#{$name} {
+    @for $i from 0 to $glitch-frequency {
+      $left: 0%;
+      $right: 100%;
+      $top: rand(0, 90) * 1%;
+      $bottom: $top + rand(1, 10) * 1%;
+
+      #{$i * $glitch-interval} {
+        clip-path: polygon(
+          $left $top,
+          $right $top,
+          $right $bottom,
+          $left $bottom
+        );
+        transform: translate(#{rand(-8, 8) * 1%}, #{rand(-0.5, 0.5) * 1%});
+      }
+    }
+
+    #{$glitch-duration},
+    100% {
+      clip-path: none;
+      transform: none;
+    }
+  }
+
+  animation: glitch-#{$name} $animation-duration linear infinite alternate both;
 }
 
 .glitch {
   background: #000 no-repeat center;
-  background-size: 0;
+  background-size: 0; // 元画像は見えなくする（CSSはbackground画像の情報は保持している）
   height: 100vh;
   overflow: hidden;
   position: relative;
 
+  &::before,
+  &::after,
   .channel {
     background: inherit;
-    background-size: cover;
+    background-size: cover; // 見えなくした画像を表示する
     bottom: 0;
     left: 0;
     position: absolute;
     right: 0;
     top: 0;
+  }
+
+  &::before {
+    @include glitch(before);
+    // clip-path: polygon(0 20%, 100%, 20%, 100% 30%, 0 30%);
+    // transform: translate(5%, 0.5%);
+    content: "";
+  }
+
+  &::after {
+    @include glitch(after);
+    // clip-path: polygon(0 60%, 100% 60%, 100% 65%, 0 65%);
+    // transform: translate(-5%, -0.5%);
+    content: "";
   }
 
   .channel {
@@ -53,7 +96,7 @@ $glitch-interval: $glitch-duration / $glitch-frequency;
       content: "";
       display: block;
       left: 0;
-      mix-blend-mode: multiply;
+      mix-blend-mode: multiply; // 例えば全部赤の背景とmultiplyすると赤のみが残る
       position: absolute;
       right: 0;
       top: 0;
