@@ -1,6 +1,6 @@
 // 最小~最大の間のランダムな数値を返す関数
 @function rand($min, $max) {
-  @return random() * ($max - $min) + $min;
+    @return random() * ($max - $min) + $min;
 }
 
 $animation-duration: 3s;
@@ -10,117 +10,123 @@ $glitch-interval: $glitch-duration / $glitch-frequency;
 
 // RGBずらし
 @mixin rgb-shift($name) {
-  @keyframes rgb-shift-#{$name} {
-    @for $i from 0 to $glitch-frequency {
-      #{$i * $glitch-interval} {
-        transform: translate(#{rand(-2, 2) * 1%}, #{rand(-0.5, 0.5) * 1%});
-      }
+    @keyframes rgb-shift-#{$name} {
+        @for $i from 0 to $glitch-frequency {
+            #{$i * $glitch-interval} {
+                transform: translate(
+                    #{rand(-2, 2) * 1%},
+                    #{rand(-0.5, 0.5) * 1%}
+                );
+            }
+        }
+        #{$glitch-duration},
+        100% {
+            transform: none;
+        }
     }
-    #{$glitch-duration},
-    100% {
-      transform: none;
-    }
-  }
 
-  animation: rgb-shift-#{$name} $animation-duration steps(1, jump-end) infinite alternate
-    both;
+    animation: rgb-shift-#{$name} $animation-duration steps(1, jump-end) infinite
+        alternate both;
 }
 
 // グリッチ
 @mixin glitch($name) {
-  @keyframes glitch-#{$name} {
-    @for $i from 0 to $glitch-frequency {
-      $left: 0%;
-      $right: 100%;
-      $top: rand(0, 90) * 1%;
-      $bottom: $top + rand(1, 10) * 1%;
+    @keyframes glitch-#{$name} {
+        @for $i from 0 to $glitch-frequency {
+            $left: 0%;
+            $right: 100%;
+            $top: rand(0, 90) * 1%;
+            $bottom: $top + rand(1, 10) * 1%;
 
-      #{$i * $glitch-interval} {
-        clip-path: polygon(
-          $left $top,
-          $right $top,
-          $right $bottom,
-          $left $bottom
-        );
-        transform: translate(#{rand(-8, 8) * 1%}, #{rand(-0.5, 0.5) * 1%});
-      }
+            #{$i * $glitch-interval} {
+                clip-path: polygon(
+                    $left $top,
+                    $right $top,
+                    $right $bottom,
+                    $left $bottom
+                );
+                transform: translate(
+                    #{rand(-8, 8) * 1%},
+                    #{rand(-0.5, 0.5) * 1%}
+                );
+            }
+        }
+
+        #{$glitch-duration},
+        100% {
+            clip-path: none;
+            transform: none;
+        }
     }
 
-    #{$glitch-duration},
-    100% {
-      clip-path: none;
-      transform: none;
-    }
-  }
-
-  animation: glitch-#{$name} $animation-duration linear infinite alternate both;
+    animation: glitch-#{$name} $animation-duration linear infinite alternate both;
 }
 
 .glitch {
-  background: #000 no-repeat center;
-  background-size: 0; // 元画像は見えなくする（CSSはbackground画像の情報は保持している）
-  height: 100vh;
-  overflow: hidden;
-  position: relative;
+    background: #000 no-repeat center;
+    background-size: 0; // 元画像は見えなくする（CSSはbackground画像の情報は保持している）
+    height: 100vh;
+    overflow: hidden;
+    position: relative;
 
-  &::before,
-  &::after,
-  .channel {
-    background: inherit;
-    background-size: cover; // 見えなくした画像を表示する
-    bottom: 0;
-    left: 0;
-    position: absolute;
-    right: 0;
-    top: 0;
-  }
-
-  &::before {
-    @include glitch(before);
-    // clip-path: polygon(0 20%, 100%, 20%, 100% 30%, 0 30%);
-    // transform: translate(5%, 0.5%);
-    content: "";
-  }
-
-  &::after {
-    @include glitch(after);
-    // clip-path: polygon(0 60%, 100% 60%, 100% 65%, 0 65%);
-    // transform: translate(-5%, -0.5%);
-    content: "";
-  }
-
-  .channel {
-    mix-blend-mode: screen;
-    &::before {
-      bottom: 0;
-      content: "";
-      display: block;
-      left: 0;
-      mix-blend-mode: multiply; // 例えば全部赤の背景とmultiplyすると赤のみが残る
-      position: absolute;
-      right: 0;
-      top: 0;
+    &::before,
+    &::after,
+    .channel {
+        background: inherit;
+        background-size: cover; // 見えなくした画像を表示する
+        bottom: 0;
+        left: 0;
+        position: absolute;
+        right: 0;
+        top: 0;
     }
-  }
 
-  .r {
-    // transform: translate(4px, 2px);
-    @include rgb-shift(r);
     &::before {
-      background: #f00;
+        @include glitch(before);
+        // clip-path: polygon(0 20%, 100%, 20%, 100% 30%, 0 30%);
+        // transform: translate(5%, 0.5%);
+        content: '';
     }
-  }
-  .g {
-    // transform: translate(-3px, -1px);
-    @include rgb-shift(g);
-    &::before {
-      background: #0f0;
+
+    &::after {
+        @include glitch(after);
+        // clip-path: polygon(0 60%, 100% 60%, 100% 65%, 0 65%);
+        // transform: translate(-5%, -0.5%);
+        content: '';
     }
-  }
-  .b {
-    &::before {
-      @include rgb-shift(b);
-      background: #00f;
+
+    .channel {
+        mix-blend-mode: screen;
+        &::before {
+            bottom: 0;
+            content: '';
+            display: block;
+            left: 0;
+            mix-blend-mode: multiply; // 例えば全部赤の背景とmultiplyすると赤のみが残る
+            position: absolute;
+            right: 0;
+            top: 0;
+        }
     }
-  }
+
+    .r {
+        // transform: translate(4px, 2px);
+        @include rgb-shift(r);
+        &::before {
+            background: #f00;
+        }
+    }
+    .g {
+        // transform: translate(-3px, -1px);
+        @include rgb-shift(g);
+        &::before {
+            background: #0f0;
+        }
+    }
+    .b {
+        &::before {
+            @include rgb-shift(b);
+            background: #00f;
+        }
+    }
 }
