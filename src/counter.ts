@@ -7,4 +7,6 @@ export function setupCounter(element: HTMLButtonElement) {
     element.addEventListener('click', () => setCounter(counter + 1))
     setCounter(0)
     const a = 214
+
+    console.log(isNaN(true))
 }
