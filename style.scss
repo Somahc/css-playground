@@ -130,3 +130,25 @@ $glitch-interval: $glitch-duration / $glitch-frequency;
         }
     }
 }
+
+a {
+    color: #000;
+    text-decoration: none;
+}
+
+.text {
+    overflow: hidden;
+    color: transparent;
+    font-size: 60px;
+
+    text-shadow:
+        0 -1.5em 0 #000,
+        0 0 0 #000;
+    transition: text-shadow 0.3s;
+}
+
+.text:hover {
+    text-shadow:
+        0 0 0 #000,
+        0 1.5em 0 #000;
+}
